@@ -38,16 +38,16 @@ Step 4: (CREATE) functionality to create new books
 Step 5: (UPDATE) functionality to update a book
 
 - Step 5.a: display a form to update a book
-  - [ ] add link (eg. in book details page)
-  - [ ] Create a route (GET `/books/:bookId/edit`)
-  - [ ] Make a request to the DB --> Book.findById()
-  - [ ] Create a view (`book-edit.hbs`)
+  - [] add link (eg. in book details page)
+  - [] Create a route (GET `/books/:bookId/edit`)
+  - [] Make a request to the DB --> Book.findById()
+  - [] Create a view (`book-edit.hbs`)
 
 - Step 5.b: receive edit form and update DB
 
-  - [ ] Create a route (POST `/books/:bookId/edit`)
-  - [ ] Query to the DB --> Book.findByIdAndUpdate(id, newBookDetails)
-  - [ ] Redirect to the book details page
+  - [x] Create a route (POST `/books/:bookId/edit`)
+  - [x] Query to the DB --> Book.findByIdAndUpdate(id, newBookDetails)
+  - [x] Redirect to the book details page
 
 
 Step 6: (DELETE) functionality to delete a book
