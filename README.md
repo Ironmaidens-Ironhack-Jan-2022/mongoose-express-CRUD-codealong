@@ -52,8 +52,8 @@ Step 5: (UPDATE) functionality to update a book
 
 Step 6: (DELETE) functionality to delete a book
 
-- [ ] Add a button (ex. in the list of books). We will add it inside a form, so that we send a POST request.
-- [ ] Create a route (POST `/books/:bookId/delete`)
-- [ ] Query to DB --> Book.findByIdAndDelete(req.params.bookId)
-- [ ] Redirect to `/books`
+- [x] Add a button (ex. in the list of books). We will add it inside a form, so that we send a POST request.
+- [x] Create a route (POST `/books/:bookId/delete`)
+- [x] Query to DB --> Book.findByIdAndDelete(req.params.bookId)
+- [x] Redirect to `/books`
 
