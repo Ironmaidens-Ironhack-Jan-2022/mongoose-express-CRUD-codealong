@@ -13,7 +13,13 @@ router.get("/", (req, res, next) => {
 
 
 router.get("/create", (req, res, next) => {
-  res.render("books/book-create");
+  Author.find()
+    .then(authors => {
+      res.render("books/book-create", {authorsArr: authors});
+    })
+    .catch(err => {
+      console.log('Error getting authors from DB...', err);
+    })
 });
 
 
