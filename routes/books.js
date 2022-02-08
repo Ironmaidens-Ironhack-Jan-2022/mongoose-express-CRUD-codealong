@@ -8,7 +8,9 @@ router.get("/", (req, res, next) => {
     .then( booksFromDB => {
       res.render("books/books-list", {books: booksFromDB});
     })
-    .catch();
+    .catch(err => {
+      console.log('Error getting books from DB...', err);
+    })
 });
 
 
