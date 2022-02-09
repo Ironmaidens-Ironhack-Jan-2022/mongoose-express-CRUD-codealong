@@ -42,4 +42,39 @@ router.post("/signup", (req, res, next) => {
         });
 });
 
+
+router.get('/login', (req, res) => res.render('auth/login'));
+
+
+router.post("/login", (req, res, next) => {
+    const {email, password} = req.body;
+
+    if (!email || !password) {
+        res.render('auth/login', { errorMessage: 'Please enter both, email and password to login.' });
+        return;
+    }
+
+    // Task: make query to DB to get details of the user
+    User.findOne({email: email})
+        .then( userFromDB => {
+            if(!userFromDB){
+                res.render('auth/login', { errorMessage: 'Email is not registered. Try with other email.' });
+                return;
+            } else if (bcryptjs.compareSync(password, userFromDB.passwordHash)) {
+                //login sucessful
+                res.render('users/user-profile', {user: userFromDB} );
+            } else {
+                //login failed
+                res.render('auth/login', { errorMessage: 'Incorrect credentials.' });
+            }
+        })
+        .catch(error => console.log("Error getting user details from DB", error));
+});
+
+
+router.get('/user-profile', (req, res) => {
+    res.render('users/user-profile');
+    // res.render('users/user-profile', { userInSession: req.session.currentUser });
+});
+
 module.exports = router;
