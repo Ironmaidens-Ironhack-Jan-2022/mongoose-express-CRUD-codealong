@@ -27,6 +27,7 @@ app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
 // Routes
 app.use("/", require("./routes/index"));
+app.use("/", require("./routes/auth"));
 app.use("/books", require("./routes/books"));
 app.use("/authors", require("./routes/authors"));
 
