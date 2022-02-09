@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
 const User = require("../models/User.model");
 const saltRounds = 10;
@@ -7,9 +8,15 @@ router.get("/signup", (req, res, next) => {
     res.render("auth/signup");
 });
 
+
 router.post("/signup", (req, res, next) => {
 
     const {password, email} = req.body;
+
+    if( !password || !email ){
+        res.render('auth/signup', { errorMessage: 'All fields are mandatory. Please provide email and password.' });
+        return;
+    }
 
     bcryptjs
         .genSalt(saltRounds)
@@ -26,7 +33,13 @@ router.post("/signup", (req, res, next) => {
         .then( userFromDB => {
             res.redirect("/");
         })
-        .catch( e => console.log("error generating hash", e));
+        .catch( error => {
+            if (error instanceof mongoose.Error.ValidationError) {
+                res.status(500).render('auth/signup', { errorMessage: error.message });
+            } else {
+                next(error);
+            }
+        });
 });
 
 module.exports = router;
