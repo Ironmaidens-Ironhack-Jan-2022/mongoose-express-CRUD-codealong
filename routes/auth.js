@@ -1,15 +1,16 @@
 const router = require("express").Router();
 const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
+const {isLoggedIn, isLoggedOut} = require("../middleware/route-guard");
 const User = require("../models/User.model");
 const saltRounds = 10;
 
-router.get("/signup", (req, res, next) => {
+router.get("/signup", isLoggedOut, (req, res, next) => {
     res.render("auth/signup");
 });
 
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", isLoggedOut, (req, res, next) => {
 
     const {password, email} = req.body;
 
@@ -43,10 +44,10 @@ router.post("/signup", (req, res, next) => {
 });
 
 
-router.get('/login', (req, res) => res.render('auth/login'));
+router.get('/login', isLoggedOut, (req, res) => res.render('auth/login'));
 
 
-router.post("/login", (req, res, next) => {
+router.post("/login", isLoggedOut, (req, res, next) => {
     const {email, password} = req.body;
 
     if (!email || !password) {
@@ -73,12 +74,12 @@ router.post("/login", (req, res, next) => {
 });
 
 
-router.get('/user-profile', (req, res) => {
+router.get('/user-profile', isLoggedIn, (req, res) => {
     res.render('users/user-profile', { userInSession: req.session.currentUser });
 });
 
 
-router.post('/logout', (req, res, next) => {
+router.post('/logout', isLoggedIn, (req, res, next) => {
     req.session.destroy(err => {
         if (err) next(err);
         res.redirect('/');

@@ -13,6 +13,8 @@ const express = require("express");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
+const {isLoggedIn, isLoggedOut} = require("./middleware/route-guard");
+
 const app = express();
 
 //session config
@@ -38,8 +40,8 @@ app.use((req, res, next)=>{
 // Routes
 app.use("/", require("./routes/index"));
 app.use("/", require("./routes/auth"));
-app.use("/books", require("./routes/books"));
-app.use("/authors", require("./routes/authors"));
+app.use("/books", isLoggedIn, require("./routes/books"));
+app.use("/authors", isLoggedIn, require("./routes/authors"));
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
