@@ -72,6 +72,12 @@ ul {
 ul li {
   line-height: 20px;
 }
+
+#header {
+  padding: 1rem;
+  background-color: #fb70f4;
+  text-align: center;
+}
  
 #to-right {
   padding: 1em;

@@ -28,6 +28,13 @@ const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowe
 app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
 
+// expose session data for handlebars
+app.use((req, res, next)=>{
+    res.locals.session = req.session;
+    next();
+});
+
+
 // Routes
 app.use("/", require("./routes/index"));
 app.use("/", require("./routes/auth"));
